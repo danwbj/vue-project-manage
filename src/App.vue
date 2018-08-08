@@ -59,6 +59,7 @@ export default {
     MenuItem,
     SiderBar,
     HeaderBar
+    // Button
   },
   created() {},
   mounted() {
@@ -93,7 +94,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='less'>
+@import './style/common.less';
 .layout {
   border: 1px solid #d7dde4;
   background: #f5f7f9;

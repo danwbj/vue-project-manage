@@ -1,6 +1,6 @@
 <template>
     <!-- <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed"> -->
-      <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses" accordion>
+      <Menu active-name="1-2" theme="dark" width="auto" @on-select="goPage" :class="menuitemClasses" accordion>
          <Submenu name="1">
             <template slot="title">
                 <Icon type="ios-paper" />
@@ -25,7 +25,7 @@
                 <Icon type="ios-people" />
                 职位
             </template>
-            <MenuItem name="3-1">职位列表</MenuItem>
+            <MenuItem name="job">职位列表</MenuItem>
         </Submenu>
         <Submenu name="4">
             <template slot="title">
@@ -80,6 +80,14 @@ export default {
   methods: {
     collapsedSider() {
       this.$refs.side1.toggleCollapse()
+    },
+    goPage(name) {
+      console.log(name)
+      // 点击菜单进入对应路由
+      let app = this
+      this.$nextTick(() => {
+        app.$router.push(name)
+      })
     }
   }
 }
