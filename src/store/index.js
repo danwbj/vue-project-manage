@@ -9,10 +9,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoading: false,
-    hello: 'hello'
+    hello: 'hello',
+    isCollapsed: false // 是否显示侧边的导航栏
   },
   actions,
   mutations,
   strict: true
-//   plugins
+  //   plugins
 })
