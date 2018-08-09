@@ -1,38 +1,38 @@
 <template>
     <!-- <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed"> -->
-      <Menu active-name="1-2" theme="dark" width="auto" @on-select="goPage" :class="menuitemClasses" accordion>
-         <Submenu name="1">
+      <Menu ref="menu" :active-name="active_name" :open-names='open_name' theme="dark" width="auto" @on-select="goPage" :class="menuitemClasses" accordion>
+         <Submenu name="project">
             <template slot="title">
-                <Icon type="ios-paper" />
+              <Icon type="md-code-working" />
                 项目
             </template>
-            <MenuItem name="1-1">分析页</MenuItem>
-            <MenuItem name="1-2">工作台</MenuItem>
-            <MenuItem name="1-3">我的项目</MenuItem>
-            <MenuItem name="1-4">任务一览</MenuItem>
-            <MenuItem name="1-5">所有项目</MenuItem>
-            <MenuItem name="1-6">项目类型</MenuItem>
+            <MenuItem name="project-analyze">分析页</MenuItem>
+            <MenuItem name="project-workbench">工作台</MenuItem>
+            <MenuItem name="project-my">我的项目</MenuItem>
+            <MenuItem name="project-overview">任务一览</MenuItem>
+            <MenuItem name="project-all">所有项目</MenuItem>
+            <MenuItem name="project-type">项目类型</MenuItem>
         </Submenu>
-        <Submenu name="2">
+        <Submenu name="team">
             <template slot="title">
-                <Icon type="ios-paper" />
+                <Icon type="md-people" />
                 团队
             </template>
-            <MenuItem name="2-1">团队列表</MenuItem>
+            <MenuItem name="team-list">团队列表</MenuItem>
         </Submenu>
-        <Submenu name="3">
+        <Submenu name="job">
             <template slot="title">
-                <Icon type="ios-people" />
+                <Icon type="md-ribbon" />
                 职位
             </template>
-            <MenuItem name="job">职位列表</MenuItem>
+            <MenuItem name="job-list">职位列表</MenuItem>
         </Submenu>
-        <Submenu name="4">
+        <Submenu name="position">
             <template slot="title">
-                <Icon type="ios-stats" />
+                <Icon type="ios-color-wand" />
                 职称
             </template>
-            <MenuItem name="4-1">等级列表</MenuItem>
+            <MenuItem name="position-rank">等级列表</MenuItem>
         </Submenu>
       </Menu>
   <!-- </Sider> -->
@@ -48,6 +48,8 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
+      active_name: '',
+      open_name: []
       //   isCollapsed: false
     }
   },
@@ -63,26 +65,32 @@ export default {
     Submenu,
     MenuGroup
   },
+
   computed: {
     ...mapState({
       isCollapsed: state => state.isCollapsed
     }),
     rotateIcon() {
-      console.log('rotateIcon', this.isCollapsed)
       return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
     },
 
     menuitemClasses() {
-      console.log('menuitemClasses', this.isCollapsed)
       return ['menu-item', this.isCollapsed ? 'collapsed-menu' : '']
     }
+  },
+  mounted() {
+    let path = this.$route.path
+    this.active_name = path.split('/')[1]
+    this.open_name.push(path.split('/')[1].split('-')[0])
+    this.$nextTick(() => {
+      this.$refs.menu.updateOpened(this.open_name)
+    })
   },
   methods: {
     collapsedSider() {
       this.$refs.side1.toggleCollapse()
     },
     goPage(name) {
-      console.log(name)
       // 点击菜单进入对应路由
       let app = this
       this.$nextTick(() => {

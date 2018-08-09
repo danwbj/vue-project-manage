@@ -1,7 +1,18 @@
 <template>
   <div class="job">
       <wrapper-content pageTitle="职位列表">
-          <Table :columns="columns1" :data="data1"></Table>
+          <div class="table-edit">
+              <div class="left-actions"><Button type="primary" style="border-radius: 32px;">+ 添加职位</Button></div>
+              <div class="right-actions">
+                  <Button :disabled="selected.length<=0" style="border-radius: 32px;">删除职位</Button>
+                  <div class="search-input">
+                      <Input placeholder="搜索" style="width: auto">
+                        <Icon type="ios-search" slot="suffix" />
+                    </Input>
+                    </div>
+              </div>
+          </div>
+          <Table :columns="columns1" :data="data1" @on-selection-change="onSelectionChange"></Table>
           <Page :total="100" show-total class="table-page"/>
       </wrapper-content>
   </div>
@@ -14,7 +25,13 @@ export default {
   name: 'Job',
   data() {
     return {
+      selected: [],
       columns1: [
+        {
+          type: 'selection',
+          width: 60,
+          align: 'center'
+        },
         {
           title: '职位名称',
           key: 'name'
@@ -51,7 +68,7 @@ export default {
                     }
                   }
                 },
-                'View'
+                '查看'
               ),
               h(
                 'Button',
@@ -66,7 +83,7 @@ export default {
                     }
                   }
                 },
-                'Delete'
+                '删除'
               )
             ])
           }
@@ -107,11 +124,6 @@ export default {
           name: '技术总监',
           e_name: 'CTO',
           order: 7
-        },
-        {
-          name: '技术总监',
-          e_name: 'CTO',
-          order: 8
         }
       ]
     }
@@ -138,6 +150,9 @@ export default {
     },
     remove(index) {
       //   this.data6.splice(index, 1)
+    },
+    onSelectionChange(selection) {
+      this.selected = selection
     }
   },
   computed: {
@@ -150,5 +165,21 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style lang='less'>
+.job {
+  .table-edit {
+    height: 40px;
+    margin-bottom: 20px;
+    .left-actions {
+      float: left;
+    }
+    .right-actions {
+      float: right;
+      .search-input {
+        display: inline-block;
+        margin-left: 5px;
+      }
+    }
+  }
+}
 </style>

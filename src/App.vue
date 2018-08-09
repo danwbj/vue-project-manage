@@ -62,10 +62,7 @@ export default {
     // Button
   },
   created() {},
-  mounted() {
-    // this.contentHeight = window.innerHeight + 'px'
-    console.log(window.innerHeight)
-  },
+  mounted() {},
   computed: {
     ...mapState({
       isCollapsed: state => state.isCollapsed
@@ -84,6 +81,9 @@ export default {
       }
       return styleObject
     }
+  },
+  watch: {
+    $route: function(to, from) {}
   },
   methods: {
     // collapsedSider() {

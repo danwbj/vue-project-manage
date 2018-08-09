@@ -1,6 +1,7 @@
 <template>
     <div class="wrapper-main">
-        <div class="wrapper-content">
+        <!-- <Scroll height='600'> -->
+            <div class="wrapper-content">
             <slot name="page-header"></slot>
             <div class="layout-content">
                 <slot name="page-action"></slot>
@@ -11,6 +12,8 @@
                 2016-2017 &copy; Pear TeamConsole
             </div>-->
         </div>
+        <!-- </Scroll> -->
+        
     </div>
 </template>
 <script type="es6">
